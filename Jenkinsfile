@@ -1,18 +1,18 @@
 node{
   stage('SCM Checkout'){
-	  git branch: 'wartomcat', url: 'https://github.com/prabhatpankaj/devopsprojects.git'
+	  git branch: 'wartomcat', url: 'https://github.com/abdulw786/devopsprojects.git'
   
 	}
   
   stage('Compile-Package'){
-	 def mvnHome = tool name: 'maven-3.5.4', type: 'maven'
+	 def mvnHome = tool name: 'apache-maven-3.6.3', type: 'maven'
   	 sh "${mvnHome}/bin/mvn package"
 	}
 	
 	stage('deploy to Tomcat') {
-	  sh 'who'
-	  sh 'scp -i /home/ec2-user/jenkins-demo.pem -o StrictHostKeyChecking=no target/*.war ec2-user@100.26.175.204:/opt/tomcat9/webapps/'
+	  sshagent(['ec2jenkins.pem']) {
+	  sh 'scp -i /home/ec2-user/jenkins-demo.pem -o StrictHostKeyChecking=no target/*.war ec2-user@34.227.56.240:/opt/tomcat9/webapps/'
+		}
+  
 	}
-  
-  
 }
