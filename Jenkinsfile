@@ -14,5 +14,5 @@ node{
 		sshagent(['ec2jenkins.pem']) {
 		sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@34.227.56.240:/opt/tomcat9/webapps/'
 	}
-  
+	}
 }
