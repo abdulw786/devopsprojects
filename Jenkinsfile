@@ -15,4 +15,7 @@ node{
 		sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@34.227.56.240:/opt/tomcat9/webapps/'
 	}
 	}
+	stage('Slack Notification'){
+	slackSend baseUrl: 'https://hooks.slack.com/services/', channel: '#jenkins', color: '#439FE0', message: 'started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)', tokenCredentialId: 'slack'
+	}
 }
